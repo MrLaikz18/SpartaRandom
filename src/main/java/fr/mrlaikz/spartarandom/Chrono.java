@@ -41,9 +41,9 @@ public class Chrono {
                 task.cancel();
             }
 
-            if(timer == 3600 || timer%900 == 0) {
+            if((timer%3600 == 0 || timer%900 == 0 || timer == 10 || timer == 3 || timer == 2 || timer == 1) && timer != 0) {
                 plugin.getProxy().broadcast("§3========== §6§lSparta'§c§lRandom §3==========");
-                plugin.getProxy().broadcast("§6§lTirage au sort dans " + timer + " secondes !");
+                plugin.getProxy().broadcast("§6§lTirage au sort dans " + timer / 3600 + "h " + (timer / 60)%60 + "m " + timer % 60 + "s");
             }
 
             timer--;

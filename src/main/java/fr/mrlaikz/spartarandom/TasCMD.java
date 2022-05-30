@@ -28,25 +28,18 @@ public class TasCMD extends Command {
 
                 int timer = Integer.parseInt(args[0]);
                 int nbr = Integer.parseInt(args[1]);
-                List<ProxiedPlayer> pls = new ArrayList<ProxiedPlayer>();
 
-                for(ProxiedPlayer pps : plugin.getProxy().getPlayers()) {
-                    if(!pp.hasPermission("spartarandom.bypass")) {
-                        pls.add(pps);
-                    }
-                }
-                if(nbr < pls.size()) {
-                    List<ProxiedPlayer> wins = new ArrayList<ProxiedPlayer>();
-                    Chrono c = new Chrono(plugin, pp, timer, nbr, winners -> {
+                List<ProxiedPlayer> pls = new ArrayList<ProxiedPlayer>();
+                List<ProxiedPlayer> wins = new ArrayList<ProxiedPlayer>();
+                Chrono c = new Chrono(plugin, pp, timer, nbr, winners -> {
+                    if(winners.size()>0) {
                         plugin.getProxy().broadcast("§3========== §6§lSparta'§c§lRandom §3==========");
                         plugin.getProxy().broadcast("§6Voici le(s) gagnant(s):");
                         for (ProxiedPlayer p : winners) {
                             plugin.getProxy().broadcast("§a" + p.getName());
                         }
-                    });
-                } else {
-                    pp.sendMessage("§c§lTirage Impossible");
-                }
+                    }
+                });
 
             }
 
