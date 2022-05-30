@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class TasCMD extends Command {
 
     private SpartaRandom plugin;
+    private Chrono c;
     public TasCMD(SpartaRandom plugin) {
         super("tas");
         this.plugin = plugin;
@@ -31,7 +32,7 @@ public class TasCMD extends Command {
 
                 List<ProxiedPlayer> pls = new ArrayList<ProxiedPlayer>();
                 List<ProxiedPlayer> wins = new ArrayList<ProxiedPlayer>();
-                Chrono c = new Chrono(plugin, pp, timer, nbr, winners -> {
+                c = new Chrono(plugin, pp, timer, nbr, winners -> {
                     if(winners.size()>0) {
                         plugin.getProxy().broadcast("§3========== §6§lSparta'§c§lRandom §3==========");
                         plugin.getProxy().broadcast("§6Voici le(s) gagnant(s):");
@@ -41,6 +42,12 @@ public class TasCMD extends Command {
                     }
                 });
 
+            }
+
+            if(args.length == 1 && args[0].equalsIgnoreCase("info")) {
+                int timer = c.getTimer();
+                pp.sendMessage("§3========== §6§lSparta'§c§lRandom §3==========");
+                pp.sendMessage("§6§lTirage au sort dans " + timer / 3600 + "h " + (timer / 60)%60 + "m " + timer % 60 + "s");
             }
 
         }

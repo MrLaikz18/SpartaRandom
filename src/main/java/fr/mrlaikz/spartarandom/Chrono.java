@@ -51,4 +51,8 @@ public class Chrono {
         }, 0, 1, TimeUnit.SECONDS);
     }
 
+    public int getTimer() {
+        return timer;
+    }
+
 }
