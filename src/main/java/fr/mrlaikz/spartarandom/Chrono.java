@@ -15,19 +15,13 @@ public class Chrono {
     private ScheduledTask task;
     private int timer;
     private List<ProxiedPlayer> winners = new ArrayList<ProxiedPlayer>();
+    private List<ProxiedPlayer> pls = new ArrayList<ProxiedPlayer>();
 
     public Chrono(Plugin plugin, ProxiedPlayer owner, int time, int nbr, Consumer<List<ProxiedPlayer>> winnersConsumer) {
         this.timer = time;
         task = plugin.getProxy().getScheduler().schedule(plugin, () -> {
 
             if (timer == 0) {
-                List<ProxiedPlayer> pls = new ArrayList<ProxiedPlayer>();
-
-                for(ProxiedPlayer pp : plugin.getProxy().getPlayers()) {
-                    if(!pp.hasPermission("spartarandom.bypass")) {
-                        pls.add(pp);
-                    }
-                }
 
                 if(pls.size() >= nbr) {
                     for (int i = 0; i < nbr; i++) {
@@ -39,6 +33,14 @@ public class Chrono {
                     winnersConsumer.accept(winners);
                 }
                 task.cancel();
+            }
+
+            if(timer == 300) {
+                for(ProxiedPlayer pp : plugin.getProxy().getPlayers()) {
+                    if(!pp.hasPermission("spartarandom.bypass")) {
+                        pls.add(pp);
+                    }
+                }
             }
 
             if((timer%3600 == 0 || timer%900 == 0 || timer == 10 || timer == 3 || timer == 2 || timer == 1) && timer != 0) {

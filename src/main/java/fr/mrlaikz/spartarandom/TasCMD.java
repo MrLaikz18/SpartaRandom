@@ -65,6 +65,10 @@ public class TasCMD extends Command {
             }
 
             if(args.length == 1 && args[0].equalsIgnoreCase("info")) {
+                if(c == null || c.getTimer() == -1) {
+                    pp.sendMessage("§cIl n'y a pas de tirage en cours !");
+                    return;
+                }
                 int timer = c.getTimer();
                 pp.sendMessage("§3========== §6§lSparta'§c§lRandom §3==========");
                 pp.sendMessage("§6§lTirage au sort dans " + timer / 3600 + "h " + (timer / 60)%60 + "m " + timer % 60 + "s");
